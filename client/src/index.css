@@ -1,0 +1,61 @@
+body {
+  background-color: rgb(245, 245, 245);
+}
+.section-center {
+  margin: 0 auto;
+  color: black;
+  margin-top: 8rem;
+  width: 90vw;
+  background-color: white;
+  max-width: 30rem;
+  padding: 1rem 2rem;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.section-center:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+form h4 {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+.form-control {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+}
+.btn {
+  text-transform: capitalize;
+  color: #fff;
+  background-color: #06b6d4;
+  border: 0;
+  padding: 0.5rem;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.form-input {
+  background-color: #f8fafc;
+  border: 0;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+.items {
+  margin-top: 1rem;
+}
+.single-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remove-btn,
+.edit-btn {
+  background-color: red;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+}
+.edit-btn {
+  background-color: #06b6d4;
+}
