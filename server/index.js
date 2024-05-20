@@ -1,12 +1,21 @@
+require('express-async-errors');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const { StatusCodes } = require('http-status-codes');
 const cors = require('cors');
-const server = express();
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+
+// routers
 const toDoListRoutes = require('./routes/toDoListRoutes');
+const authRoutes = require('./routes/authRoutes');
+
+// middlewares
 const errorHandlerMiddleware = require('./middleware/errorHandlerMiddleware');
+const { authenticateUser } = require('./middleware/authMiddleware');
+
+const server = express();
 
 server.use(
   cors({
@@ -15,10 +24,12 @@ server.use(
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
+server.use(cookieParser());
 server.use(express.json());
 server.use(morgan('dev'));
 
-server.use('/api/v1/tasks', toDoListRoutes);
+server.use('/api/v1/auth', authRoutes);
+server.use('/api/v1/tasks', authenticateUser, toDoListRoutes);
 
 server.use('*', (req, res) => {
   return res.status(StatusCodes.NOT_FOUND).json({ msg: 'Route not found' });

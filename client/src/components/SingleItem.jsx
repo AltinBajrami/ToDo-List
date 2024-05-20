@@ -1,4 +1,4 @@
-import { useDeleteTask, useEditTask } from "./ReachQueryCustomHook";
+import { useDeleteTask, useEditTask } from "../ReachQueryCustomHook";
 
 const SingleItem = ({ item, setItem, setIsEditing }) => {
     const { editTask } = useEditTask();

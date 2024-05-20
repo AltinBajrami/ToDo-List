@@ -14,5 +14,24 @@ class BadRequestError extends Error {
     this.statusCode = StatusCodes.BAD_REQUEST;
   }
 }
+class UnauthenticatedError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'UnauthenticatedError';
+    this.statusCode = StatusCodes.UNAUTHORIZED;
+  }
+}
+class UnauthorizedError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'UnauthorizedError';
+    this.statusCode = StatusCodes.FORBIDDEN;
+  }
+}
 
-module.exports = { NotFoundError, BadRequestError };
+module.exports = {
+  NotFoundError,
+  BadRequestError,
+  UnauthenticatedError,
+  UnauthorizedError,
+};
