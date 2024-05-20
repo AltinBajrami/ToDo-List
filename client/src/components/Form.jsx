@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCreateTask, useEditTask } from './ReachQueryCustomHook';
+import { useCreateTask, useEditTask } from '../ReachQueryCustomHook';
 import { toast } from 'react-toastify';
 
 const Form = ({ isEditing, item, setItem, setIsEditing }) => {

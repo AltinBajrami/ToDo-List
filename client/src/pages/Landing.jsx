@@ -1,8 +1,9 @@
 import React from 'react'
+import Tasks from '../components/Tasks'
 
 const Landing = () => {
     return (
-        <div>Landing</div>
+        <Tasks />
     )
 }
 

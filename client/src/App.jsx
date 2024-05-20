@@ -1,10 +1,9 @@
-import { ToastContainer } from 'react-toastify';
-import Form from './Form';
-import Items from './Items';
-import { useState } from 'react';
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { HomeLayout, Error, Landing, Login, Register } from './pages';
+import { action as loginAction } from './pages/Login'
+import { action as registerAction } from './pages/Register'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,11 +23,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />
+        element: <Login />,
+        action: loginAction
       },
       {
         path: 'register',
-        element: <Register />
+        element: <Register />,
+        action: registerAction
       }
     ]
   }
@@ -42,25 +43,3 @@ const App = () => {
   );
 };
 export default App;
-
-
-
-
-
-
-
-
-
-
-// const App = () => {
-//   const [isEditing, setIsEditing] = useState(false);
-//   const [item, setItem] = useState({ name: '', id: '' });
-
-//   return (
-//     <section className='section-center'>
-//       <ToastContainer position='top-center' />
-//       <Form isEditing={isEditing} item={item} setItem={setItem} setIsEditing={setIsEditing} />
-//       <Items setIsEditing={setIsEditing} setItem={setItem} />
-//     </section>
-//   );
-// };
