@@ -3,20 +3,19 @@ import customFetch from "./utils";
 import { toast } from "react-toastify";
 
 export const useFetchTasks = () => {
-  const { isLoading, data, error, isError } = useQuery({
+  return {
     queryKey: ['tasks'],
     queryFn: async () => {
-      const { data } = await customFetch.get('/')
+      const { data } = await customFetch.get('/tasks')
       return data;
     }
-  })
-  return { isError, isLoading, data, error }
+  }
 }
 
 export const useCreateTask = () => {
   const queryClient = useQueryClient();
   const { mutate: createTask, isLoading, error, isError } = useMutation({
-    mutationFn: (name) => customFetch.post('/', { name }),
+    mutationFn: (name) => customFetch.post('/tasks', { name }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       toast.success('task added');
@@ -32,7 +31,7 @@ export const useEditTask = () => {
   const queryClient = useQueryClient();
 
   const { mutate: editTask } = useMutation({
-    mutationFn: ({ taskId, name, completed }) => customFetch.patch(`/${taskId}`, { name, completed }),
+    mutationFn: ({ taskId, name, completed }) => customFetch.patch(`/tasks/${taskId}`, { name, completed }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
       toast.success('Task updated')
@@ -48,7 +47,7 @@ export const useDeleteTask = () => {
   const queryClient = useQueryClient();
 
   const { mutate: deleteTask, isPending } = useMutation({
-    mutationFn: ({ taskId }) => customFetch.delete(`/${taskId}`),
+    mutationFn: ({ taskId }) => customFetch.delete(`/tasks/${taskId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] })
       toast.success('Task deleted')

@@ -9,6 +9,11 @@ const ToDoListSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    required: false,
+  },
 });
 
 module.exports = mongoose.model('ToDoList', ToDoListSchema);

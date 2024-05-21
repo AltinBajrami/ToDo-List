@@ -4,6 +4,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { HomeLayout, Error, Landing, Login, Register } from './pages';
 import { action as loginAction } from './pages/Login'
 import { action as registerAction } from './pages/Register'
+import { loader as landingLoader } from './pages/Landing'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Landing />
+        element: <Landing />,
+        loader: landingLoader(queryClient)
       },
       {
         path: 'login',
