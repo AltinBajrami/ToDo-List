@@ -1,7 +1,7 @@
 import SingleItem from './SingleItem';
 import { useFetchTasks } from '../ReachQueryCustomHook';
 
-const Items = ({ setIsEditing, setItem, tasks }) => {
+const Items = ({ setIsEditing, setItem, tasks, users }) => {
 
     if (tasks.length === 0) {
         return <h2 className='items' style={{ textAlign: 'center', marginTop: '3rem' }}>Add Some Items</h2>
@@ -10,7 +10,8 @@ const Items = ({ setIsEditing, setItem, tasks }) => {
     return (
         <div className='items'>
             {tasks.map((item) => {
-                return <SingleItem key={item._id} item={item} setIsEditing={setIsEditing} setItem={setItem} />;
+                return <SingleItem key={item._id} item={item}
+                    setIsEditing={setIsEditing} setItem={setItem} users={users} />;
             })}
         </div>
     );

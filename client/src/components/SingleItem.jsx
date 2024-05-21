@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useDeleteTask, useEditTask } from "../ReachQueryCustomHook";
+import UserList from "./UserList";
 
-const SingleItem = ({ item, setItem, setIsEditing }) => {
+const SingleItem = ({ item, setItem, setIsEditing, users }) => {
     const { editTask } = useEditTask();
 
     const { deleteTask, isPending } = useDeleteTask();
+    const [showUserList, setShowUserList] = useState(false);
 
     return (
         <div className='single-item'>
@@ -18,16 +21,20 @@ const SingleItem = ({ item, setItem, setIsEditing }) => {
                     textDecoration: item.completed && 'line-through',
                 }}
             >
-                {item.name}
+                {item.name} <span>{item?.user && `'${item.user.name}'`}</span>
             </p>
+
+
             <button
-                className='btn remove-btn'
+                className='btn edit-btn'
                 type='button'
-                disabled={isPending}
-                onClick={() => deleteTask({ taskId: item._id })}
+                onClick={() => setShowUserList(!showUserList)}
             >
-                delete
+                add user
             </button>
+            {showUserList && <UserList users={users} taskId={item._id}
+                setShowUserList={setShowUserList} activeUserId={item?.user?._id} />}
+
             <button
                 className='btn edit-btn'
                 type='button'
@@ -37,6 +44,14 @@ const SingleItem = ({ item, setItem, setIsEditing }) => {
                 }}
             >
                 edit
+            </button>
+            <button
+                className='btn remove-btn'
+                type='button'
+                disabled={isPending}
+                onClick={() => deleteTask({ taskId: item._id })}
+            >
+                delete
             </button>
         </div>
     );

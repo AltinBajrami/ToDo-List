@@ -11,6 +11,15 @@ export const useFetchTasks = () => {
     }
   }
 }
+export const useFetchUsers = () => {
+  return {
+    queryKey: ['users'],
+    queryFn: async () => {
+      const { data } = await customFetch.get('tasks/users')
+      return data;
+    }
+  }
+}
 
 export const useCreateTask = () => {
   const queryClient = useQueryClient();
@@ -59,3 +68,17 @@ export const useDeleteTask = () => {
   return { deleteTask, isPending }
 }
 
+export const useAddUserToTask = () => {
+  const queryClient = useQueryClient();
+  const { mutate: addUserToTask, isPending } = useMutation({
+    mutationFn: ({ taskId, userId }) => customFetch.patch(`/tasks/assign-user/${taskId}`, { userId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      toast.success('User added')
+    },
+    onError: (error) => {
+      toast.error(error.response.data.msg)
+    }
+  })
+  return { addUserToTask, isPending }
+}

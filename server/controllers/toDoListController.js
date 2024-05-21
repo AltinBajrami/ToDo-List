@@ -7,6 +7,10 @@ const getAllTasks = async (req, res) => {
   const tasks = await ToDoList.find({}).populate('user');
   return res.status(StatusCodes.OK).json({ tasks });
 };
+const getAllUsers = async (req, res) => {
+  const users = await User.find({});
+  return res.status(StatusCodes.OK).json({ users });
+};
 
 const createTask = async (req, res) => {
   const { name, completed } = req.body;
@@ -67,4 +71,5 @@ module.exports = {
   updateTask,
   deleteTask,
   assignUser,
+  getAllUsers,
 };

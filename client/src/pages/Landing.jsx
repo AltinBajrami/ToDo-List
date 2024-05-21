@@ -1,25 +1,27 @@
 import React from 'react'
 import Tasks from '../components/Tasks'
-import customFetch from '../utils'
 import { toast } from 'react-toastify';
-import { useLoaderData } from 'react-router-dom';
-import { useFetchTasks } from '../ReachQueryCustomHook';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useFetchTasks, useFetchUsers } from '../ReachQueryCustomHook';
+import { useQuery } from '@tanstack/react-query';
 
 export const loader = (queryClient) => async () => {
     try {
         await queryClient.ensureQueryData(useFetchTasks());
-        return ''
+        await queryClient.ensureQueryData(useFetchUsers());
     } catch (error) {
         toast.error(error?.response?.data?.msg);
-        return [];
+        return error;
     }
+    return ''
 }
 
 const Landing = () => {
-    const { data: { tasks } } = useQuery(useFetchTasks())
+    const { data } = useQuery(useFetchTasks())
+    const { data: { users } } = useQuery(useFetchUsers())
+    const tasks = data?.tasks || [];
+    console.log(tasks);
     return (
-        <Tasks tasks={tasks} />
+        <Tasks tasks={tasks} users={users} />
     )
 }
 
