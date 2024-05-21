@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useAddUserToTask } from '../ReachQueryCustomHook';
+import { useAddUserToTask, useRemoveUserFromTask } from '../ReachQueryCustomHook';
 import { FaTimes } from 'react-icons/fa'
 
 const UserList = ({ users, taskId, setShowUserList, activeUserId }) => {
     const { addUserToTask } = useAddUserToTask();
-
+    const { removeUserFromTask } = useRemoveUserFromTask();
+    if (!users) {
+        return ''
+    }
     return (
         <div className="users">
             <div className='user-center'>
@@ -21,6 +24,10 @@ const UserList = ({ users, taskId, setShowUserList, activeUserId }) => {
                     ))}
                 </ul>
                 <button className="remove-userList-btn" onClick={() => setShowUserList(false)}><FaTimes /></button>
+                <button className="btn" onClick={() => {
+                    setShowUserList(false)
+                    removeUserFromTask({ taskId })
+                }}>Remove user</button>
             </div>
         </div>
     )

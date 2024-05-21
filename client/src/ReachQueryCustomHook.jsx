@@ -82,3 +82,17 @@ export const useAddUserToTask = () => {
   })
   return { addUserToTask, isPending }
 }
+export const useRemoveUserFromTask = () => {
+  const queryClient = useQueryClient();
+  const { mutate: removeUserFromTask } = useMutation({
+    mutationFn: ({ taskId }) => customFetch.get(`/tasks/remove-user/${taskId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      toast.success('User removed')
+    },
+    onError: (error) => {
+      toast.error(error.response.data.msg)
+    }
+  })
+  return { removeUserFromTask }
+}

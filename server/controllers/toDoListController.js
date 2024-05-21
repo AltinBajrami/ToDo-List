@@ -65,6 +65,17 @@ const assignUser = async (req, res) => {
   return res.status(StatusCodes.OK).json({ msg: 'User assigned successfully' });
 };
 
+const removeUser = async (req, res) => {
+  const { id } = req.params;
+  const task = await ToDoList.findById(id);
+  if (!task) throw new NotFoundError('Task not found');
+  console.log(task);
+  task.user = null;
+  console.log(task);
+  await task.save();
+  return res.status(StatusCodes.OK).json({ msg: 'User removed successfully' });
+};
+
 module.exports = {
   getAllTasks,
   createTask,
@@ -72,4 +83,5 @@ module.exports = {
   deleteTask,
   assignUser,
   getAllUsers,
+  removeUser,
 };

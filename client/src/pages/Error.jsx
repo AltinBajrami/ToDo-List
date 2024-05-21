@@ -20,6 +20,7 @@ const Error = () => {
 
     return <Wrapper>
         <h3>Something Went wrong</h3>
+        <h3>{error?.response?.data?.msg}</h3>
     </Wrapper>
 }
 

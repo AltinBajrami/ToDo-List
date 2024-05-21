@@ -21,7 +21,7 @@ const SingleItem = ({ item, setItem, setIsEditing, users }) => {
                     textDecoration: item.completed && 'line-through',
                 }}
             >
-                {item.name} <span>{item?.user && `'${item.user.name}'`}</span>
+                {item.name} <span style={{ fontWeight: 'bold' }}>{item?.user && `'${item.user.name}'`}</span>
             </p>
 
 
@@ -30,7 +30,7 @@ const SingleItem = ({ item, setItem, setIsEditing, users }) => {
                 type='button'
                 onClick={() => setShowUserList(!showUserList)}
             >
-                add user
+                {item?.user ? 'edit' : 'add'} user
             </button>
             {showUserList && <UserList users={users} taskId={item._id}
                 setShowUserList={setShowUserList} activeUserId={item?.user?._id} />}
