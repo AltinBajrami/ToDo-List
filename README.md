@@ -4,6 +4,6 @@ for front-end
 cd client/ 
 npm run dev
 
-for back end (and add MONGO_URL in .env file)
+for back end (and add MONGO_URL,JWT_SECRET in .env file)
 cd server/
 npm start
